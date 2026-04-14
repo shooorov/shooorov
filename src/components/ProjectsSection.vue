@@ -1,32 +1,56 @@
 <script setup>
 const projects = [
-  { name: 'Apparel Production & POS', desc: 'Complete solution including production workflow, export tracking, and POS.', category: 'ERP' },
-  { name: 'Attendance Management', desc: 'Integrated with ZKTeco Devices for live attendance tracking.', category: 'Integration' },
-  { name: 'Accounting System (Vue.js)', desc: 'Tailored for business-level financial operations.', category: 'Finance' },
-  { name: 'Restaurant POS (Vue.js)', desc: 'Order, billing, inventory, and reporting in one platform.', category: 'POS' },
-  { name: 'Doctor Chamber System', desc: 'Patient, appointment, and billing management.', category: 'Healthcare' },
-  { name: 'FutSal Sports Management', desc: 'Integrated with Multiple Authentication (React.js).', category: 'Management' },
-  { name: 'University Management', desc: 'Trust University & PSTU Convocation Management System.', category: 'Education' },
-  { name: 'GariSeba', desc: 'Online Car Renting Service with vehicle & booking management.', category: 'Booking' },
-  { name: 'Upside Down BD', desc: 'Online ticket booking and management platform.', category: 'Ticketing' }
+  { 
+    id: '01',
+    name: 'Apparel Production & POS', 
+    desc: 'Bespoke ERP solution for production, export, and inventory.', 
+    tech: ['Laravel', 'Vue.js', 'PostgreSQL'] 
+  },
+  { 
+    id: '02',
+    name: 'Unified Attendance System', 
+    desc: 'Real-time ZKTeco device synchronization and reporting.', 
+    tech: ['PHP', 'C++', 'Hardware API'] 
+  },
+  { 
+    id: '03',
+    name: 'Enterprise FinAccounting', 
+    desc: 'Tailored financial platform for corporate resource management.', 
+    tech: ['Vue.js', 'Inertia', 'MySQL'] 
+  },
+  { 
+    id: '04',
+    name: 'Healthcare Management', 
+    desc: 'Comprehensive patient, appointment, and clinic ecosystem.', 
+    tech: ['Laravel', 'Blade', 'Redis'] 
+  }
 ];
 </script>
 
 <template>
-  <section class="projects-section" id="projects">
+  <section class="projects-section section-light border-bottom" id="projects">
     <div class="container">
-      <h2 class="section-title">Significant <span class="text-gradient">Projects</span></h2>
-      <p class="subtitle">A collection of massive management systems built with Laravel & Vue.js</p>
+      <div class="section-header">
+        <span class="mono accent">04 / WORK</span>
+        <h2 class="section-title">Case Studies / <br/>Technical Solutions</h2>
+      </div>
       
       <div class="projects-grid">
-        <div class="project-card glass-panel" v-for="(project, index) in projects" :key="index">
-          <div class="category-badge">{{ project.category }}</div>
-          <h3>{{ project.name }}</h3>
-          <p>{{ project.desc }}</p>
-          <div class="tech-stack">
-            <span class="tech">Laravel</span>
-            <span class="tech">Vue.js</span>
-            <span class="tech">MySQL</span>
+        <div 
+          v-for="project in projects" 
+          :key="project.id" 
+          class="project-card border-top border-left"
+        >
+          <div class="project-id mono">{{ project.id }}</div>
+          <div class="project-content">
+            <h3 class="project-name">{{ project.name }}</h3>
+            <p class="project-desc">{{ project.desc }}</p>
+            <div class="project-tech">
+              <span v-for="t in project.tech" :key="t" class="mono tech-tag">{{ t }}</span>
+            </div>
+          </div>
+          <div class="project-footer border-top">
+            <a href="#" class="view-btn mono">VIEW CASE_STUDY <span class="arrow">→</span></a>
           </div>
         </div>
       </div>
@@ -36,98 +60,104 @@ const projects = [
 
 <style scoped>
 .projects-section {
-  padding: 5rem 0;
+  padding: 8rem 0;
+}
+
+.section-header {
+  margin-bottom: 5rem;
 }
 
 .section-title {
-  font-size: 3rem;
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-.subtitle {
-  text-align: center;
-  color: var(--text-secondary);
-  font-size: 1.2rem;
-  margin-bottom: 4rem;
+  font-size: 3.5rem;
+  margin-top: 1rem;
 }
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
+  grid-template-columns: 1fr 1fr;
+  border-right: 1px solid var(--glass-border);
+  border-bottom: 1px solid var(--glass-border);
 }
 
 .project-card {
-  padding: 2rem;
-  position: relative;
-  transition: all 0.3s ease;
-  overflow: hidden;
+  padding: 4rem;
   display: flex;
   flex-direction: column;
-}
-
-.project-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  background: var(--gradient-main);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s ease;
+  justify-content: space-between;
+  min-height: 450px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
 }
 
 .project-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  background: rgba(0, 0, 0, 0.02);
 }
 
-.project-card:hover::before {
-  transform: scaleX(1);
-}
-
-.category-badge {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: rgba(34, 211, 238, 0.1);
-  color: var(--laravel-cyan);
-  padding: 0.3rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-}
-
-h3 {
-  font-size: 1.3rem;
-  margin-top: 1.5rem;
-  margin-bottom: 1rem;
-  color: var(--text-primary);
-}
-
-p {
-  color: var(--text-secondary);
-  font-size: 0.95rem;
+.project-id {
+  font-size: 0.75rem;
+  opacity: 0.3;
   margin-bottom: 2rem;
-  flex-grow: 1;
 }
 
-.tech-stack {
+.project-name {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.project-desc {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.project-tech {
   display: flex;
-  gap: 0.8rem;
+  gap: 1rem;
   flex-wrap: wrap;
 }
 
-.tech {
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-  background: var(--surface-color-light);
-  border: 1px solid var(--glass-border);
-  padding: 0.2rem 0.6rem;
-  border-radius: 4px;
+.tech-tag {
+  font-size: 0.65rem;
+  background: var(--bg-light);
+  border: 1px solid var(--border-light);
+  padding: 0.3rem 0.6rem;
+  opacity: 0.7;
+}
+
+.project-footer {
+  margin-top: 3rem;
+  padding-top: 2rem;
+}
+
+.view-btn {
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.view-btn .arrow {
+  transition: transform 0.3s ease;
+}
+
+.view-btn:hover .arrow {
+  transform: translateX(10px);
+}
+
+.accent {
+  color: var(--accent-fin);
+}
+
+@media (max-width: 1024px) {
+  .projects-grid { grid-template-columns: 1fr; border-right: none; }
+  .project-card { padding: 3rem; min-height: auto; }
+}
+
+@media (max-width: 768px) {
+  .section-title { font-size: 2.5rem; }
+  .project-name { font-size: 2rem; }
 }
 </style>

@@ -2,11 +2,11 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 
 const navItems = [
-  { id: 'hero', name: 'Home' },
-  { id: 'about', name: 'About' },
-  { id: 'experience', name: 'Experience' },
-  { id: 'projects', name: 'Projects' },
-  { id: 'contact', name: 'Contact' }
+  { id: 'hero', name: 'Index', num: '01' },
+  { id: 'about', name: 'About', num: '02' },
+  { id: 'experience', name: 'History', num: '03' },
+  { id: 'projects', name: 'Work', num: '04' },
+  { id: 'contact', name: 'Contact', num: '05' }
 ]
 
 const activeSection = ref('hero')
@@ -21,6 +21,8 @@ const progresses = ref({
 const calculateProgress = () => {
   const scrollTop = window.scrollY
   const viewportHeight = window.innerHeight
+  const totalHeight = document.documentElement.scrollHeight
+  const isAtBottom = (scrollTop + viewportHeight) >= (totalHeight - 20)
 
   // 1. Identify active section based on proximity to center of viewport
   let currentActiveId = navItems[0].id
@@ -28,18 +30,14 @@ const calculateProgress = () => {
     const el = document.getElementById(item.id)
     if (!el) return
     const rect = el.getBoundingClientRect()
-    // If the section's top is in the upper half or it covers the middle
     if (rect.top <= viewportHeight * 0.4 && rect.bottom >= viewportHeight * 0.4) {
       currentActiveId = item.id
     }
   })
   activeSection.value = currentActiveId
 
-  // 2. Stepper Logic: 100% for past, dynamic for current, 0% for future
+  // 2. Stepper & Progress Logic
   let hasReachedActive = false
-  const totalHeight = document.documentElement.scrollHeight
-  const isAtBottom = (scrollTop + viewportHeight) >= (totalHeight - 20)
-
   navItems.forEach(item => {
     if (item.id === activeSection.value || (isAtBottom && item.id === 'contact')) {
       const el = document.getElementById(item.id)
@@ -49,7 +47,6 @@ const calculateProgress = () => {
         
         let progress = ((scrollTop - (sectionTop - 100)) / sectionHeight) * 100
         
-        // Force 100% if we are at the bottom for the contact section
         if (isAtBottom && item.id === 'contact') {
           progress = 100
           activeSection.value = 'contact'
@@ -84,21 +81,27 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <nav class="section-navigator">
-    <div 
-      v-for="item in navItems" 
-      :key="item.id" 
-      class="nav-item"
-      :class="{ 'active': activeSection === item.id }"
-      @click="scrollToSection(item.id)"
-    >
-      <div class="title-container">
-        <span class="nav-title">{{ item.name }}</span>
-        <div class="progress-bar-bg">
-          <div 
-            class="progress-bar-fill" 
-            :style="{ width: progresses[item.id] + '%' }"
-          ></div>
+  <nav class="fin-navigator">
+    <div class="nav-track">
+      <div 
+        v-for="item in navItems" 
+        :key="item.id" 
+        class="nav-item"
+        :class="{ 'active': activeSection === item.id }"
+        @click="scrollToSection(item.id)"
+      >
+        <div class="label-container">
+          <span class="nav-number mono">{{ item.num }}</span>
+          <span class="nav-name mono">{{ item.name }}</span>
+        </div>
+        <div class="indicator-wrapper">
+          <div class="indicator-bg">
+            <div 
+              class="indicator-fill" 
+              :style="{ height: progresses[item.id] + '%' }"
+            ></div>
+          </div>
+          <div class="dot"></div>
         </div>
       </div>
     </div>
@@ -106,89 +109,106 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-.section-navigator {
+.fin-navigator {
   position: fixed;
-  left: 3rem;
+  left: 4rem;
   top: 50%;
   transform: translateY(-50%);
   z-index: 1000;
+  height: 400px;
+  display: flex;
+  align-items: center;
+}
+
+.nav-track {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(12px);
-  border-radius: 24px;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
-}
-
-.nav-item {
-  cursor: pointer;
-  transition: all 0.3s ease;
-  width: 140px;
-}
-
-.title-container {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.nav-title {
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--text-secondary);
-  transition: all 0.3s ease;
-}
-
-.nav-item.active .nav-title {
-  color: var(--laravel-cyan);
-  transform: translateX(5px);
-}
-
-.progress-bar-bg {
-  width: 100%;
-  height: 2px; /* Slightly thinner for a classier look */
-  background: rgba(15, 23, 42, 0.03);
-  border-radius: 2px;
-  overflow: hidden;
+  justify-content: space-between;
+  height: 100%;
   position: relative;
 }
 
-.progress-bar-fill {
-  height: 100%;
-  background: var(--gradient-main);
-  border-radius: 1px;
-  transition: width 0.05s linear; /* Faster transition for responsive feel */
-  box-shadow: 0 0 8px rgba(34, 211, 238, 0.4);
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.nav-item.active .progress-bar-fill {
-  background: var(--gradient-glow);
-  box-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
-  height: 3px; /* Slightly thicker active line */
+.label-container {
+  display: flex;
+  gap: 0.5rem;
+  opacity: 0.4;
+  transition: all 0.4s ease;
+  transform: translateX(-10px);
 }
 
-.nav-item:hover .nav-title {
+.nav-item:hover .label-container,
+.nav-item.active .label-container {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.nav-number {
+  color: var(--accent-fin);
+}
+
+.nav-name {
   color: var(--text-primary);
+  font-weight: 700;
+}
+
+.indicator-wrapper {
+  position: relative;
+  width: 20px;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.indicator-bg {
+  width: 1px;
+  height: 100%;
+  background: var(--glass-border);
+  position: relative;
+}
+
+.indicator-fill {
+  width: 2px;
+  background: var(--accent-fin);
+  position: absolute;
+  top: 0;
+  left: -0.5px;
+  transition: height 0.1s linear;
+}
+
+.dot {
+  width: 4px;
+  height: 4px;
+  background: var(--text-primary);
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.3;
+}
+
+.nav-item.active .dot {
+  background: var(--accent-fin);
+  opacity: 1;
+  box-shadow: 0 0 10px var(--accent-fin);
 }
 
 @media (max-width: 1200px) {
-  .section-navigator {
-    left: 1rem;
-    padding: 1rem;
-  }
-  .nav-item {
-    width: 110px;
-  }
+  .fin-navigator { left: 1.5rem; }
+  .label-container { display: none; }
 }
 
 @media (max-width: 768px) {
-  .section-navigator {
-    display: none;
-  }
+  .fin-navigator { display: none; }
 }
 </style>

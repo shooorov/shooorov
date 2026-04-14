@@ -3,42 +3,61 @@ const experiences = [
   {
     role: 'Software Engineer',
     company: 'Starbase Club',
-    duration: 'June 2023 - Present',
-    description: 'Developing robust web applications and managing backend systems.',
+    location: 'Dhaka',
+    duration: '2023 — PRS',
+    description: 'Lead developer for enterprise-scale management systems and cloud-native architectures.',
     isCurrent: true
   },
   {
     role: 'Contract Software Developer',
-    company: 'Freelance',
-    duration: '2021 - Present',
-    description: 'Worked with Crebsol Ltd, Datasys Limited, DaVinci Solutions, and ValueToFlow on various contract projects.',
+    company: 'ValueToFlow',
+    location: 'Remote',
+    duration: '2022 — PRS',
+    description: 'Providing technical leadership for international software development initiatives.',
     isCurrent: true
   },
   {
     role: 'Junior Web Developer',
     company: 'Datasys Limited',
-    duration: 'October 2019 - June 2020',
-    description: 'Built foundational web components and assisted in client project deliveries.',
+    location: 'Dhaka',
+    duration: '2019 — 2020',
+    description: 'Developed core features and handled client integration for fintech applications.',
     isCurrent: false
   }
 ];
 </script>
 
 <template>
-  <section class="experience-section" id="experience">
+  <section class="experience-section section-dark border-top border-bottom" id="experience">
     <div class="container">
-      <h2 class="section-title">My <span class="text-gradient-alt">Experience</span></h2>
+      <div class="section-header">
+        <span class="mono accent">03 / HISTORY</span>
+        <h2 class="section-title">Professional / <br/>Technical Journey</h2>
+      </div>
       
-      <div class="timeline">
-        <div class="timeline-item" v-for="(exp, index) in experiences" :key="index">
-          <div class="timeline-dot" :class="{ 'active': exp.isCurrent }"></div>
-          <div class="timeline-content glass-panel">
-            <div class="exp-header">
-              <h3>{{ exp.role }}</h3>
-              <span class="duration">{{ exp.duration }}</span>
+      <div class="experience-list">
+        <div 
+          v-for="(exp, index) in experiences" 
+          :key="index" 
+          class="exp-item border-top"
+          :class="{ 'current': exp.isCurrent }"
+        >
+          <div class="exp-left">
+            <span class="mono exp-year">{{ exp.duration }}</span>
+            <span class="mono exp-location">{{ exp.location }}</span>
+          </div>
+          
+          <div class="exp-center">
+            <h3 class="exp-role">{{ exp.role }}</h3>
+            <p class="exp-company mono">{{ exp.company }}</p>
+          </div>
+          
+          <div class="exp-right">
+            <p class="exp-desc">{{ exp.description }}</p>
+            <div v-if="exp.isCurrent" class="status-indicator">
+              <span class="status-dot"></span>
+              <span class="mono">ACTIVE</span>
             </div>
-            <h4 class="company">{{ exp.company }}</h4>
-            <p>{{ exp.description }}</p>
           </div>
         </div>
       </div>
@@ -48,101 +67,105 @@ const experiences = [
 
 <style scoped>
 .experience-section {
-  padding: 5rem 0;
-  position: relative;
+  padding: 8rem 0;
+}
+
+.section-header {
+  margin-bottom: 5rem;
 }
 
 .section-title {
-  font-size: 3rem;
-  text-align: center;
-  margin-bottom: 4rem;
+  font-size: 3.5rem;
+  margin-top: 1rem;
 }
 
-.timeline {
-  max-width: 800px;
-  margin: 0 auto;
-  position: relative;
-}
-
-.timeline::before {
-  content: '';
-  position: absolute;
-  left: 15px;
-  top: 0;
-  height: 100%;
-  width: 2px;
-  background: var(--glass-border);
-}
-
-.timeline-item {
-  position: relative;
-  padding-left: 50px;
-  margin-bottom: 3rem;
-}
-
-.timeline-dot {
-  position: absolute;
-  left: 6px;
-  top: 5px;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: var(--surface-color-light);
-  border: 4px solid var(--laravel-cyan);
-  z-index: 1;
-}
-
-.timeline-dot.active {
-  border-color: var(--neon-green);
-  box-shadow: 0 0 15px var(--neon-green);
-}
-
-.timeline-content {
-  padding: 2rem;
-  transition: transform 0.3s ease, border-color 0.3s ease;
-}
-
-.timeline-content:hover {
-  transform: translateX(10px);
-  border-color: var(--electric-blue);
-}
-
-.exp-header {
+.experience-list {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  flex-direction: column;
+}
+
+.exp-item {
+  display: grid;
+  grid-template-columns: 200px 1fr 1.5fr;
+  padding: 3rem 0;
+  gap: 4rem;
+  transition: background 0.4s ease;
+}
+
+.exp-item:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.exp-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.exp-year {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent-fin);
+}
+
+.exp-location {
+  font-size: 0.65rem;
+  opacity: 0.5;
+}
+
+.exp-role {
+  font-size: 2rem;
   margin-bottom: 0.5rem;
 }
 
-.exp-header h3 {
-  font-size: 1.5rem;
-  color: var(--text-primary);
+.exp-company {
+  font-size: 0.8rem;
+  opacity: 0.7;
 }
 
-.duration {
-  font-size: 0.9rem;
-  color: var(--electric-blue);
-  background: var(--surface-color-light);
-  padding: 0.3rem 0.8rem;
-  border-radius: 20px;
-  border: 1px solid var(--glass-border);
-}
-
-.company {
+.exp-desc {
   font-size: 1.1rem;
-  color: var(--laravel-cyan);
-  margin-bottom: 1rem;
-}
-
-.timeline-content p {
-  color: var(--text-secondary);
   line-height: 1.6;
+  color: var(--text-secondary);
+  max-width: 450px;
 }
 
-@media (max-width: 600px) {
-  .exp-header {
-    flex-direction: column;
-    gap: 0.5rem;
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent-fin);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent-fin);
+}
+
+.status-indicator .mono {
+  font-size: 0.6rem;
+  letter-spacing: 0.2rem;
+  opacity: 0.8;
+}
+
+.accent {
+  color: var(--accent-fin);
+}
+
+@media (max-width: 1024px) {
+  .exp-item {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 2.5rem 0;
   }
+  .exp-desc { max-width: 100%; }
+}
+
+@media (max-width: 768px) {
+  .section-title { font-size: 2.5rem; }
+  .exp-role { font-size: 1.5rem; }
 }
 </style>

@@ -12,36 +12,43 @@ const skills = [
 </script>
 
 <template>
-  <section class="about-section" id="about">
+  <section class="about-section section-light" id="about">
     <div class="container">
-      <h2 class="section-title">About <span class="text-gradient">Me</span></h2>
+      <div class="section-header border-bottom">
+        <span class="mono accent">02 / ABOUT ME</span>
+        <h2 class="section-title">A focus on performance <br/>and technical excellence.</h2>
+      </div>
       
-      <div class="about-content">
-        <div class="bio glass-panel">
-          <h3>My Background</h3>
-          <p>
-            I am a Software Engineer currently working at Starbase Club. I specialize in building 
-            robust web applications and complete management systems using <b>Laravel</b> and <b>Vue.js</b>.
+      <div class="about-grid">
+        <div class="bio-panel border-right">
+          <p class="bio-text">
+            I am a Software Engineer based in Mirpur, Dhaka. Currently contributing my expertise at <b>Starbase Club</b>, 
+            where I architect and build robust web systems using Laravel and Vue.js.
           </p>
-          <p>
-            With a B.Sc. in CSE from Bangladesh University of Business and Technology, I have a strong 
-            foundation in logic and problem-solving, having solved over 100+ problems on Uva Online Judge.
+          <p class="bio-text">
+            My approach is rooted in computer science fundamentals, grounded by a B.Sc. from BUBT 
+            and a history of competitive programming problem-solving.
           </p>
-          <div class="education">
-            <h4>Education</h4>
-            <ul>
-              <li><b>B.Sc. in CSE</b> - BUBT (CGPA: 3.59)</li>
-              <li><b>HSC & SSC in Science</b> - Cantonment Public School & College (GPA: 5.00)</li>
-            </ul>
+          
+          <div class="education-block border-top">
+            <h4 class="mono">EDUCATION / CREDENTIALS</h4>
+            <div class="edu-item">
+              <span class="mono">2018—2022</span>
+              <p>B.Sc. in Computer Science & Engineering (CGPA: 3.59)</p>
+            </div>
+            <div class="edu-item">
+              <span class="mono">2016-2018</span>
+              <p>HSC & SSC in Science (GPA: 5.00)</p>
+            </div>
           </div>
         </div>
         
-        <div class="skills glass-panel">
-          <h3>Tech Stack</h3>
+        <div class="skills-panel">
+          <h4 class="mono">CORE / TECHNOLOGIES</h4>
           <div class="skills-grid">
             <div class="skill-item" v-for="skill in skills" :key="skill.name">
               <img :src="`https://skillicons.dev/icons?i=${skill.icon}&theme=light`" :alt="skill.name" />
-              <span>{{ skill.name }}</span>
+              <span class="mono">{{ skill.name }}</span>
             </div>
           </div>
         </div>
@@ -52,78 +59,77 @@ const skills = [
 
 <style scoped>
 .about-section {
-  padding: 5rem 0;
+  padding: 8rem 0;
+}
+
+.section-header {
+  margin-bottom: 4rem;
+  padding-bottom: 2rem;
 }
 
 .section-title {
-  font-size: 3rem;
-  text-align: center;
-  margin-bottom: 3rem;
+  font-size: 3.5rem;
+  margin-top: 1rem;
 }
 
-.about-content {
+.about-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  gap: 4rem;
 }
 
-.bio, .skills {
-  padding: 2.5rem;
+.bio-panel {
+  padding-right: 4rem;
 }
 
-h3 {
-  font-size: 1.8rem;
+.bio-text {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  color: var(--text-primary);
+}
+
+.education-block {
+  margin-top: 3rem;
+  padding-top: 2rem;
+}
+
+.education-block h4 {
   margin-bottom: 1.5rem;
-  color: var(--laravel-cyan);
+  opacity: 0.5;
 }
 
-.bio p {
-  margin-bottom: 1rem;
-  color: var(--text-secondary);
-  font-size: 1.1rem;
+.edu-item {
+  margin-bottom: 1.5rem;
 }
 
-.education {
-  margin-top: 2rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--glass-border);
+.edu-item span {
+  font-size: 0.65rem;
+  opacity: 0.6;
+  display: block;
+  margin-bottom: 0.2rem;
 }
 
-.education h4 {
-  color: var(--neon-green);
-  margin-bottom: 1rem;
+.edu-item p {
+  font-weight: 500;
 }
 
-.education ul {
-  list-style-type: none;
-  color: var(--text-secondary);
-}
-
-.education li {
-  margin-bottom: 0.5rem;
-  position: relative;
-  padding-left: 1.5rem;
-}
-
-.education li::before {
-  content: '→';
-  position: absolute;
-  left: 0;
-  color: var(--laravel-cyan);
+.skills-panel h4 {
+  margin-bottom: 2rem;
+  opacity: 0.5;
 }
 
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  gap: 1.5rem;
-  text-align: center;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 2rem;
 }
 
 .skill-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
   transition: transform 0.3s ease;
 }
 
@@ -132,20 +138,22 @@ h3 {
 }
 
 .skill-item img {
-  width: 50px;
-  height: 50px;
-  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+  width: 48px;
+  height: 48px;
 }
 
 .skill-item span {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  font-weight: 500;
+  font-size: 0.65rem;
+  font-weight: 700;
 }
 
-@media (max-width: 768px) {
-  .about-content {
-    grid-template-columns: 1fr;
-  }
+.accent {
+  color: var(--accent-fin);
+}
+
+@media (max-width: 900px) {
+  .about-grid { grid-template-columns: 1fr; }
+  .bio-panel { padding-right: 0; border-right: none; }
+  .section-title { font-size: 2.5rem; }
 }
 </style>

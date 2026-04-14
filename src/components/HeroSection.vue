@@ -2,27 +2,30 @@
 </script>
 
 <template>
-  <section id="hero" class="hero-section glass-panel">
-    <div class="container animate-fade-in">
-      <div class="hero-content">
-        <p class="greeting text-gradient-alt">Hi 👋, I'm</p>
-        <h1 class="name">Md. Anwar <span class="text-gradient">Shahadat</span></h1>
-        <h2 class="title">A passionate <span class="text-gradient-alt">Software Engineer</span></h2>
-        
-        <p class="summary">
-          My proactive mindset drives me to embrace new challenges and continuously seek knowledge to enhance my contributions. Based in Dhaka, Bangladesh.
-        </p>
-        
-        <div class="cta-group">
-          <a href="#projects" class="btn btn-primary">View My Work</a>
-          <a href="#contact" class="btn btn-outline">Contact Me</a>
+  <section id="hero" class="hero-section section-dark border-bottom">
+    <div class="container reveal">
+      <div class="hero-layout">
+        <div class="meta-info">
+          <span class="mono accent">01 / INDEX</span>
+          <div class="vertical-line"></div>
+          <span class="mono">LOCATION / DHAKA, BD</span>
         </div>
-      </div>
-      
-      <div class="hero-graphic">
-        <div class="glow-orb blue-orb"></div>
-        <div class="glow-orb cyan-orb"></div>
-        <div class="glow-orb green-orb"></div>
+        
+        <div class="main-content">
+          <p class="mono status-line"><span class="status-dot"></span> AVAILABLE FOR NEW OPPORTUNITIES</p>
+          <h1 class="hero-name">Md. Anwar <br/>Shahadat</h1>
+          <h2 class="hero-title mono">Software Engineer / <span class="accent">Frontend & Backend</span></h2>
+          
+          <p class="hero-summary">
+            Specializing in building robust management systems and high-performance web applications 
+            with a focus on technical precision and user-centric design.
+          </p>
+          
+          <div class="hero-actions">
+            <a href="#projects" class="btn btn-primary">Explorer Work</a>
+            <a href="#contact" class="btn btn-outline">Initiate Contact</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -30,112 +33,95 @@
 
 <style scoped>
 .hero-section {
-  min-height: 80vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
-  position: relative;
-  overflow: hidden;
-  margin: 2rem;
-  border: 1px solid var(--glass-border);
+  padding: 8rem 0;
 }
 
-.container {
+.hero-layout {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 4rem;
+}
+
+.meta-info {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 1.5rem;
   align-items: center;
-  width: 100%;
+  padding-top: 1rem;
 }
 
-.hero-content {
-  max-width: 600px;
-  z-index: 10;
+.meta-info .mono {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  opacity: 0.5;
+  font-size: 0.65rem;
 }
 
-.greeting {
-  font-size: 1.5rem;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
+.vertical-line {
+  width: 1px;
+  height: 100px;
+  background: var(--glass-border);
 }
 
-.name {
-  font-size: 4.5rem;
-  margin-bottom: 0.5rem;
-  line-height: 1.1;
-}
-
-.title {
-  font-size: 2.5rem;
-  color: var(--text-secondary);
-  margin-bottom: 1.5rem;
-  font-weight: 400;
-}
-
-.summary {
-  font-size: 1.2rem;
-  color: var(--text-secondary);
-  margin-bottom: 2.5rem;
-}
-
-.cta-group {
+.status-line {
   display: flex;
-  gap: 1rem;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 0.7rem;
+  margin-bottom: 2rem;
+  opacity: 0.7;
 }
 
-.hero-graphic {
-  position: absolute;
-  right: 10%;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 400px;
-  height: 400px;
-  z-index: 0;
-}
-
-.glow-orb {
-  position: absolute;
+.status-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent-fin);
   border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.3;
-  animation: float 8s ease-in-out infinite both alternate;
+  display: inline-block;
+  box-shadow: 0 0 10px var(--accent-fin);
 }
 
-.blue-orb {
-  width: 300px;
-  height: 300px;
-  background: var(--electric-blue);
-  top: 0;
-  left: 0;
-  animation-delay: 0s;
+.hero-name {
+  font-size: 7rem;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
 }
 
-.cyan-orb {
-  width: 250px;
-  height: 250px;
-  background: var(--laravel-cyan);
-  bottom: 0;
-  right: 0;
-  animation-delay: 2s;
+.hero-title {
+  font-size: 1rem;
+  margin-bottom: 3rem;
+  opacity: 0.9;
 }
 
-.green-orb {
-  width: 200px;
-  height: 200px;
-  background: var(--neon-green);
-  top: 30%;
-  left: 20%;
-  animation-delay: 4s;
+.hero-summary {
+  max-width: 500px;
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: 3rem;
+  line-height: 1.8;
 }
 
-@keyframes float {
-  0% { transform: translateY(0) scale(1); }
-  100% { transform: translateY(-20px) scale(1.1); }
+.hero-actions {
+  display: flex;
+  gap: 1.5rem;
 }
 
-@media (max-width: 900px) {
-  .name { font-size: 3rem; }
-  .title { font-size: 1.8rem; }
-  .hero-graphic { opacity: 0.3; right: -20%; }
+.accent {
+  color: var(--accent-fin);
+}
+
+@media (max-width: 1024px) {
+  .hero-name { font-size: 5rem; }
+  .hero-layout { grid-template-columns: 1fr; }
+  .meta-info { display: none; }
+}
+
+@media (max-width: 768px) {
+  .hero-name { font-size: 3.5rem; }
+  .hero-actions { flex-direction: column; }
 }
 </style>
