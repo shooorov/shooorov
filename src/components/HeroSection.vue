@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <section class="hero-section glass-panel">
+  <section id="hero" class="hero-section glass-panel">
     <div class="container animate-fade-in">
       <div class="hero-content">
         <p class="greeting text-gradient-alt">Hi 👋, I'm</p>
