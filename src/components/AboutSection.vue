@@ -40,7 +40,7 @@ const skills = [
           <h3>Tech Stack</h3>
           <div class="skills-grid">
             <div class="skill-item" v-for="skill in skills" :key="skill.name">
-              <img :src="`https://skillicons.dev/icons?i=${skill.icon}&theme=dark`" :alt="skill.name" />
+              <img :src="`https://skillicons.dev/icons?i=${skill.icon}&theme=light`" :alt="skill.name" />
               <span>{{ skill.name }}</span>
             </div>
           </div>

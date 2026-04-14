@@ -121,10 +121,11 @@ const experiences = [
 
 .duration {
   font-size: 0.9rem;
-  color: var(--neon-green);
-  background: rgba(57, 255, 20, 0.1);
+  color: var(--electric-blue);
+  background: var(--surface-color-light);
   padding: 0.3rem 0.8rem;
   border-radius: 20px;
+  border: 1px solid var(--glass-border);
 }
 
 .company {

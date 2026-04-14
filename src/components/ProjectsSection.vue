@@ -82,7 +82,7 @@ const projects = [
 
 .project-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
 }
 
 .project-card:hover::before {
@@ -124,8 +124,9 @@ p {
 
 .tech {
   font-size: 0.8rem;
-  color: var(--neon-green);
-  border: 1px solid rgba(57, 255, 20, 0.3);
+  color: var(--text-secondary);
+  background: var(--surface-color-light);
+  border: 1px solid var(--glass-border);
   padding: 0.2rem 0.6rem;
   border-radius: 4px;
 }

@@ -37,16 +37,24 @@ const calculateProgress = () => {
 
   // 2. Stepper Logic: 100% for past, dynamic for current, 0% for future
   let hasReachedActive = false
+  const totalHeight = document.documentElement.scrollHeight
+  const isAtBottom = (scrollTop + viewportHeight) >= (totalHeight - 20)
+
   navItems.forEach(item => {
-    if (item.id === activeSection.value) {
+    if (item.id === activeSection.value || (isAtBottom && item.id === 'contact')) {
       const el = document.getElementById(item.id)
       if (el) {
         const sectionTop = el.offsetTop
         const sectionHeight = el.offsetHeight
         
-        // Progress within the section (0% at top, 100% at bottom)
-        // We use innerHeight/2 to trigger "finished" slightly offset for better feel
-        const progress = ((scrollTop - (sectionTop - 100)) / sectionHeight) * 100
+        let progress = ((scrollTop - (sectionTop - 100)) / sectionHeight) * 100
+        
+        // Force 100% if we are at the bottom for the contact section
+        if (isAtBottom && item.id === 'contact') {
+          progress = 100
+          activeSection.value = 'contact'
+        }
+        
         progresses.value[item.id] = Math.max(0, Math.min(100, progress))
       }
       hasReachedActive = true
@@ -108,11 +116,11 @@ onUnmounted(() => {
   flex-direction: column;
   gap: 1.5rem;
   padding: 1.5rem;
-  background: rgba(5, 8, 16, 0.4);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  border: 1px solid var(--glass-border);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  border-radius: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
 }
 
 .nav-item {
@@ -144,8 +152,8 @@ onUnmounted(() => {
 .progress-bar-bg {
   width: 100%;
   height: 2px; /* Slightly thinner for a classier look */
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 1px;
+  background: rgba(15, 23, 42, 0.03);
+  border-radius: 2px;
   overflow: hidden;
   position: relative;
 }

@@ -96,9 +96,9 @@
 .glow-orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.5;
-  animation: float 6s ease-in-out infinite both alternate;
+  filter: blur(100px);
+  opacity: 0.3;
+  animation: float 8s ease-in-out infinite both alternate;
 }
 
 .blue-orb {

@@ -138,8 +138,8 @@
 
 .social-btn:hover {
   transform: translateY(-3px);
-  border-color: var(--laravel-cyan);
-  box-shadow: 0 5px 15px rgba(34, 211, 238, 0.2);
+  border-color: var(--electric-blue);
+  box-shadow: 0 5px 15px rgba(59, 130, 246, 0.2);
 }
 
 .github:hover {

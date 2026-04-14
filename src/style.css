@@ -1,25 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&display=swap');
 
 :root {
-  /* Core Premium Dark Mode Colors */
-  --bg-color: #050810;
-  --surface-color: #0A1121;
-  --surface-color-light: #131E35;
-  --text-primary: #F3F4F6;
-  --text-secondary: #9CA3AF;
+  /* Core Premium Light Mode Colors */
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --surface-color-light: #f1f5f9;
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
   
   /* User Requested Accent Colors */
-  --neon-green: #39FF14;
-  --laravel-cyan: #22D3EE;
-  --electric-blue: #007BFF;
+  --neon-green: #22c55e; /* Slightly more balanced for light theme */
+  --laravel-cyan: #06b6d4; /* Slightly more balanced for light theme */
+  --electric-blue: #3b82f6; /* Slightly more balanced for light theme */
   
   /* Accent Gradients */
   --gradient-main: linear-gradient(135deg, var(--laravel-cyan), var(--electric-blue));
   --gradient-glow: linear-gradient(135deg, var(--neon-green), var(--laravel-cyan));
 
   /* Utilities */
-  --glass-bg: rgba(19, 30, 53, 0.4);
-  --glass-border: rgba(255, 255, 255, 0.05);
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(0, 0, 0, 0.1);
 }
 
 * {
@@ -75,7 +75,7 @@ a:hover {
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--glass-border);
   border-radius: 16px;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(15, 23, 42, 0.05);
 }
 
 .btn {
